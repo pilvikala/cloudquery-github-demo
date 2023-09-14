@@ -1,0 +1,38 @@
+version: "3.3"
+services:
+  metabase:
+    restart: always
+    build: ./metabase
+    ports:
+      - 3001:3000
+    environment:
+      - MB_DB_TYPE=postgres
+      - MB_DB_NAME=cq
+      - MB_DB_PORT=5432
+      - MB_DB_USER=cq
+      - MB_DB_PASS=password123
+      - MB_DB_HOST=cq-demo-postgres-1
+  # dashboard:
+  #   image: grafana/grafana-oss
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - grafana_data:/var/lib/grafana
+  #   container_name: grafana
+  postgres:
+    restart: always
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_USER=cq
+      - POSTGRES_DB=cq
+  cq-cron:
+    build: cloudquery
+    volumes:
+      - ./github.yml:/app/github.yml:ro
+    environment:
+      - PG_CONNECTION_STRING="postgresql://cq:password123@cq-demo-postgres-1:5432/cq?sslmode=disable"
+    env_file:
+      - .env
+# volumes:
+#   grafana_data: {}
