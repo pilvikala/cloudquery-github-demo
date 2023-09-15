@@ -8,5 +8,5 @@ COPY --from=metabase/metabase:latest /app /app
 RUN useradd -ms /bin/sh metabase && chown -R metabase /app
 WORKDIR /app
 USER metabase
-
+ENV MB_DB_FILE=${MB_DB_FILE}
 ENTRYPOINT ["/app/run_metabase.sh"]

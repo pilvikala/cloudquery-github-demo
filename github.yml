@@ -3,7 +3,7 @@ spec:
   # Source spec section
   name: github
   path: cloudquery/github
-  version: "v7.1.0"
+  version: "v7.3.2"
   tables: ["github_issues"]
   destinations: ["postgresql"]
   spec:
