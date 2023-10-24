@@ -3,7 +3,8 @@ spec:
   # Source spec section
   name: github
   path: cloudquery/github
-  version: "v7.3.2"
+  registry: cloudquery
+  version: "v7.4.1"
   tables: ["github_issues"]
   destinations: ["postgresql"]
   spec:
@@ -11,10 +12,61 @@ spec:
     orgs: ["cloudquery"] # Optional. List of organizations to sync from
     repos: ["cloudquery/cloudquery"] # Optional. List of repositories to sync from
 ---
+kind: source
+spec:
+  name: typeform
+  registry: grpc
+  path: typeform-plugin:7777
+  tables: ["*"]
+  destinations: ["postgresql"]
+  # Typeform-specific configuration
+  spec:
+    access_token: ${TYPEFORM_TOKEN}
+    base_url: "https://api.typeform.com" # use https://api.eu.typeform.com for EU accounts
+    # Optional configuration
+    # concurrency: 100
+    # queue_size: 10000
+---
+kind: source
+spec:
+  name: "hubspot"
+  path: cloudquery/hubspot
+  version: "v3.0.11"
+  registry: cloudquery
+  destinations: ["postgresql"]
+  tables: ["hubspot_crm_companies", "hubspot_crm_contacts", "hubspot_crm_deals"]
+  spec:
+    # optional, default is 5.
+    # See https://developers.hubspot.com/docs/api/usage-details#rate-limits
+    max_requests_per_second: 5
+    table_options:
+      hubspot_crm_companies:
+        associations: []
+        properties: []
+      hubspot_crm_contacts:
+        associations: []
+        properties: []
+      hubspot_crm_deals:
+        associations: []
+        properties: []
+      hubspot_crm_line_items:
+        associations: []
+        properties: []
+      hubspot_crm_products:
+        associations: []
+        properties: []
+      hubspot_crm_quotes:
+        associations: []
+        properties: []
+      hubspot_crm_tickets:
+        associations: []
+        properties: []
+---
 kind: destination
 spec:
   name: postgresql
   path: cloudquery/postgresql
+  registry: cloudquery
   version: "v5.0.5"
   spec:
     connection_string: ${PG_CONNECTION_STRING}

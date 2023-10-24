@@ -1,6 +1,7 @@
 version: "3.3"
 services:
   metabase:
+    container_name: metabase
     restart: always
     build: ./metabase
     ports:
@@ -17,6 +18,7 @@ services:
   #     - grafana_data:/var/lib/grafana
   #   container_name: grafana
   postgres:
+    container_name: cq-demo-postgres-1
     restart: always
     image: postgres
     environment:
@@ -25,7 +27,10 @@ services:
       - POSTGRES_DB=cq
     volumes:
       - ./.db:/var/lib/postgresql/data:rw
+    ports: 
+      - 5432:5432
   cq-cron:
+    container_name: cq-cron
     build: cloudquery
     volumes:
       - ./github.yml:/app/github.yml:ro
@@ -33,5 +38,14 @@ services:
       - PG_CONNECTION_STRING="postgresql://cq:password123@cq-demo-postgres-1:5432/cq?sslmode=disable"
     env_file:
       - .env
+  typeform-plugin:
+    container_name: typeform-plugin
+    build: cloudquery-private/plugins/source/typeform
+    environment:
+      - TYPEFORM_TOKEN=${TYPEFORM_TOKEN}
+    env_file:
+      - .env
+    ports:
+      - 7777:7777 # expose for local testing
 #volumes:
   #grafana_data: {}
