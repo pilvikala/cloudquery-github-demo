@@ -40,7 +40,7 @@ services:
       - .env
   typeform-plugin:
     container_name: typeform-plugin
-    build: cloudquery-private/plugins/source/typeform
+    build: github-cloudquery/plugins/source/typeform
     environment:
       - TYPEFORM_TOKEN=${TYPEFORM_TOKEN}
     env_file:
