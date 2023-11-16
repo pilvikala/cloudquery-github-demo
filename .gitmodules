@@ -1,3 +1,6 @@
 [submodule "github-cloudquery"]
 	path = github-cloudquery
 	url = git@github.com:cloudquery/cloudquery.git
+[submodule "cq-source-bitly"]
+	path = cq-source-bitly
+	url = git@github.com:cloudquery/cq-source-bitly.git

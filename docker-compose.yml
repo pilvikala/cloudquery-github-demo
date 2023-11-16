@@ -47,5 +47,15 @@ services:
       - .env
     ports:
       - 7777:7777 # expose for local testing
+  bitly-plugin:
+    container_name: bitly-plugin
+    build: cq-source-bitly
+    environment:
+      - BITLY_API_TOKEN=${BITLY_API_TOKEN}
+      - BITLY_GROUP_ID=${BITLY_GROUP_ID}
+    env_file:
+      - .env
+    ports:
+      - 7778:7778 # expose for local testing
 #volumes:
   #grafana_data: {}
