@@ -31,9 +31,9 @@ kind: source
 spec:
   name: "bitly"
   registry: "grpc"
-  path: "localhost:7777"
+  path: "bitly-plugin:7777"
   tables: ['*']
-  destinations: ["sqlite"]
+  destinations: ["postgresql"]
   spec:
     group_id: ${BITLY_GROUP_ID}
     api_token: ${BITLY_API_TOKEN}
@@ -41,19 +41,21 @@ spec:
 ---
 kind: source
 spec:
-  name: simple-analytics
+  name: "simple-analytics"
+  path: "simple-analytics/simple-analytics"
+  version: "v2.0.0"
   registry: cloudquery
-  path: simple-analytics/simple-analytics
-  version: "v1.0.1"
-  tables: ["*"]
-  destinations: ["postgresql"]
-  # use this to enable incremental syncing
   backend_options:
     table_name: "cq_state_simpleanalytics"
     connection: "@@plugins.postgresql.connection"
+  tables: 
+    ["*"]
+  destinations: 
+    - "postgresql"
   spec:
-    api_key: "${SA_API_KEY}"
-    user_id: "${SA_USER_ID}"
+    # plugin spec section
+    api_key: ${SA_API_KEY}
+    user_id: ${SA_USER_ID}
     websites:
       - hostname: cloudquery.io
       - hostname: hub.cloudquery.io
