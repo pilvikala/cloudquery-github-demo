@@ -29,6 +29,27 @@ spec:
 ---
 kind: source
 spec:
+  name: simple-analytics
+  registry: cloudquery
+  path: simple-analytics/simple-analytics
+  version: "v1.0.1"
+  tables: ["*"]
+  destinations: ["postgresql"]
+  # use this to enable incremental syncing
+  backend_options:
+    table_name: "cq_state_simpleanalytics"
+    connection: "@@plugins.postgresql.connection"
+  spec:
+    api_key: "${SA_API_KEY}"
+    user_id: "${SA_USER_ID}"
+    websites:
+      - hostname: cloudquery.io
+      - hostname: hub.cloudquery.io
+      - hostname: cloud.cloudquery.io
+
+---
+kind: source
+spec:
   name: "hubspot"
   path: cloudquery/hubspot
   version: "v3.0.11"
