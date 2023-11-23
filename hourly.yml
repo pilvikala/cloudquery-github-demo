@@ -1,3 +1,76 @@
+---
+kind: source
+spec:
+  name: typeform
+  registry: grpc
+  path: typeform-plugin:7777
+  tables: ["*"]
+  destinations: ["postgresql"]
+  # Typeform-specific configuration
+  spec:
+    access_token: ${TYPEFORM_TOKEN}
+    base_url: "https://api.typeform.com" # use https://api.eu.typeform.com for EU accounts
+    # Optional configuration
+    # concurrency: 100
+    # queue_size: 10000
+---
+kind: source
+spec:
+  name: "simple-analytics"
+  path: "simple-analytics/simple-analytics"
+  version: "v2.0.0"
+  registry: cloudquery
+  backend_options:
+    table_name: "cq_state_simpleanalytics"
+    connection: "@@plugins.postgresql.connection"
+  tables: 
+    ["*"]
+  destinations: 
+    - "postgresql"
+  spec:
+    # plugin spec section
+    api_key: ${SA_API_KEY}
+    user_id: ${SA_USER_ID}
+    websites:
+      - hostname: cloudquery.io
+      - hostname: hub.cloudquery.io
+      - hostname: cloud.cloudquery.io
+---
+kind: source
+spec:
+  name: "hubspot"
+  path: cloudquery/hubspot
+  version: "v3.0.11"
+  registry: cloudquery
+  destinations: ["postgresql"]
+  tables: ["hubspot_crm_companies", "hubspot_crm_contacts", "hubspot_crm_deals"]
+  spec:
+    # optional, default is 5.
+    # See https://developers.hubspot.com/docs/api/usage-details#rate-limits
+    max_requests_per_second: 5
+    table_options:
+      hubspot_crm_companies:
+        associations: []
+        properties: ["annualRevenue","country", "description", "industry", "isPublic", "numberOfEmployees", "yearFounded", "domain"]
+      hubspot_crm_contacts:
+        associations: []
+        properties: []
+      hubspot_crm_deals:
+        associations: []
+        properties: []
+      hubspot_crm_line_items:
+        associations: []
+        properties: []
+      hubspot_crm_products:
+        associations: []
+        properties: []
+      hubspot_crm_quotes:
+        associations: []
+        properties: []
+      hubspot_crm_tickets:
+        associations: []
+        properties: []
+---
 kind: source
 spec:
   # Source spec section
@@ -26,41 +99,6 @@ spec:
     # Optional configuration
     # concurrency: 100
     # queue_size: 10000
----
-kind: source
-spec:
-  name: "bitly"
-  registry: "grpc"
-  path: "bitly-plugin:7777"
-  tables: ['*']
-  destinations: ["postgresql"]
-  spec:
-    group_id: ${BITLY_GROUP_ID}
-    api_token: ${BITLY_API_TOKEN}
-    extract_utm: true
----
-kind: source
-spec:
-  name: "simple-analytics"
-  path: "simple-analytics/simple-analytics"
-  version: "v2.0.0"
-  registry: cloudquery
-  backend_options:
-    table_name: "cq_state_simpleanalytics"
-    connection: "@@plugins.postgresql.connection"
-  tables: 
-    ["*"]
-  destinations: 
-    - "postgresql"
-  spec:
-    # plugin spec section
-    api_key: ${SA_API_KEY}
-    user_id: ${SA_USER_ID}
-    websites:
-      - hostname: cloudquery.io
-      - hostname: hub.cloudquery.io
-      - hostname: cloud.cloudquery.io
-
 ---
 kind: source
 spec:

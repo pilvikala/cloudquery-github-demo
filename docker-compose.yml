@@ -33,7 +33,9 @@ services:
     container_name: cq-cron
     build: cloudquery
     volumes:
-      - ./github.yml:/app/github.yml:ro
+      - ./daily.yml:/app/daily.yml:ro
+      - ./hourly.yml:/app/hourly.yml:ro
+
     environment:
       - PG_CONNECTION_STRING="postgresql://cq:password123@cq-demo-postgres-1:5432/cq?sslmode=disable"
     env_file:
@@ -45,8 +47,8 @@ services:
       - TYPEFORM_TOKEN=${TYPEFORM_TOKEN}
     env_file:
       - .env
-    ports:
-      - 7777:7777 # expose for local testing
+    # ports:
+    #   - 7777:7777 # expose for local testing
   bitly-plugin:
     container_name: bitly-plugin
     build: cq-source-bitly
@@ -55,7 +57,7 @@ services:
       - BITLY_GROUP_ID=${BITLY_GROUP_ID}
     env_file:
       - .env
-    ports:
-      - 7778:7778 # expose for local testing
+    # ports:
+    #   - 7778:7778 # expose for local testing
 #volumes:
   #grafana_data: {}

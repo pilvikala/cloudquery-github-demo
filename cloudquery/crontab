@@ -1,1 +1,3 @@
-*/10 * * * * /app/sync.sh
+0 * * * * /app/sync.sh /app/hourly.yml
+0 9 * * * /app/sync.sh /app/daily.yml
+0 18 * * * /app/sync.sh /app/daily.yml
