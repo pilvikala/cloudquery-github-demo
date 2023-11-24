@@ -4,7 +4,7 @@ spec:
   registry: "grpc"
   path: "bitly-plugin:7777"
   tables: ['*']
-  destinations: ["postgresql"]
+  destinations: ["postgresql", "neon-postgresql"]
   spec:
     group_id: ${BITLY_GROUP_ID}
     api_token: ${BITLY_API_TOKEN}
@@ -18,7 +18,7 @@ spec:
   registry: cloudquery
   version: "v7.4.1"
   tables: ["github_issues"]
-  destinations: ["postgresql"]
+  destinations: ["postgresql", "neon-postgresql"]
   spec:
     access_token: ${GITHUB_PAT} # Personal Access Token required if not using App Authentication.
     orgs: ["cloudquery"] # Optional. List of organizations to sync from
@@ -32,3 +32,12 @@ spec:
   version: "v6.1.3"
   spec:
     connection_string: ${PG_CONNECTION_STRING}
+---
+kind: destination
+spec:
+  name: "neon-postgresql"
+  path: cloudquery/postgresql
+  registry: cloudquery
+  version: "v6.1.3"
+  spec:
+    connection_string: ${PG_NEON_CONNECTION_STRING}
