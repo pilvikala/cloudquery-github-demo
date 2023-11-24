@@ -5,7 +5,7 @@ spec:
   registry: grpc
   path: typeform-plugin:7777
   tables: ["*"]
-  destinations: ["postgresql", "neon-postgresql"]
+  destinations: ["postgresql"]
   # Typeform-specific configuration
   spec:
     access_token: ${TYPEFORM_TOKEN}
@@ -27,7 +27,6 @@ spec:
     ["*"]
   destinations: 
     - "postgresql"
-    - "neon-postgresql"
   spec:
     # plugin spec section
     api_key: ${SA_API_KEY}
@@ -45,7 +44,7 @@ spec:
   registry: cloudquery
   version: "v7.4.1"
   tables: ["github_issues"]
-  destinations: ["postgresql", "neon-postgresql"]
+  destinations: ["postgresql"]
   spec:
     access_token: ${GITHUB_PAT} # Personal Access Token required if not using App Authentication.
     orgs: ["cloudquery"] # Optional. List of organizations to sync from
@@ -57,7 +56,7 @@ spec:
   path: cloudquery/hubspot
   version: "v3.0.11"
   registry: cloudquery
-  destinations: ["postgresql", "neon-postgresql"]
+  destinations: ["postgresql"]
   tables: ["hubspot_crm_companies", "hubspot_crm_contacts", "hubspot_crm_deals"]
   spec:
     # optional, default is 5.
@@ -94,12 +93,3 @@ spec:
   version: "v6.1.3"
   spec:
     connection_string: ${PG_CONNECTION_STRING}
----
-kind: destination
-spec:
-  name: "neon-postgresql"
-  path: cloudquery/postgresql
-  registry: cloudquery
-  version: "v6.1.3"
-  spec:
-    connection_string: ${PG_NEON_CONNECTION_STRING}
