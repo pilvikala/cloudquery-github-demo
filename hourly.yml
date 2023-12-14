@@ -47,8 +47,8 @@ spec:
   destinations: ["postgresql"]
   spec:
     access_token: ${GITHUB_PAT} # Personal Access Token required if not using App Authentication.
-    orgs: ["cloudquery"] # Optional. List of organizations to sync from
-    repos: ["cloudquery/cloudquery"] # Optional. List of repositories to sync from
+    # orgs: ["cloudquery"] # Optional. List of organizations to sync from
+    repos: ["cloudquery/cloudquery", "cloudquery/cloudquery-issues"] # Optional. List of repositories to sync from
 ---
 kind: source
 spec:

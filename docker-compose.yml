@@ -31,6 +31,7 @@ services:
       - 5432:5432
   cq-cron:
     container_name: cq-cron
+    restart: always
     build: cloudquery
     volumes:
       - ./daily.yml:/app/daily.yml:ro
@@ -42,6 +43,7 @@ services:
       - .env
   typeform-plugin:
     container_name: typeform-plugin
+    restart: always
     build: github-cloudquery/plugins/source/typeform
     environment:
       - TYPEFORM_TOKEN=${TYPEFORM_TOKEN}
@@ -51,6 +53,7 @@ services:
     #   - 7777:7777 # expose for local testing
   bitly-plugin:
     container_name: bitly-plugin
+    restart: always
     build: cq-source-bitly
     environment:
       - BITLY_API_TOKEN=${BITLY_API_TOKEN}
