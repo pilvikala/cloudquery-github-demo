@@ -4,3 +4,6 @@
 [submodule "cq-source-bitly"]
 	path = cq-source-bitly
 	url = git@github.com:cloudquery/cq-source-bitly.git
+[submodule "cq-speed-test"]
+	path = cq-speed-test
+	url = git@github.com:pilvikala/cq-speed-test.git
