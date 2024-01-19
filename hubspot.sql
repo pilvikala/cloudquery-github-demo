@@ -1,10 +1,37 @@
 create view hubspot_crm_companies_props as (
+with companies_with_revenue as (
+	select
+		id,
+		properties->>'domain' as domain,
+		properties->>'country' as country,
+		properties->>'industry' as industry,
+		properties->>'description' as description,
+		properties->>'annualrevenue' as annualRevenue,
+		properties->>'numberofemployees' as numberOfEmployees
+	from 
+		hubspot_crm_companies hcc
+	where properties->>'annualrevenue' <> '' and properties->>'annualrevenue' is not null
+)
 select id,
-regexp_replace(cast (properties->'domain' as text), '\"', '', 'g') as "domain",
-regexp_replace(cast (properties->'country' as text), '\"', '', 'g') as country,
-regexp_replace(cast (properties->'industry' as text), '\"', '', 'g') as industry,
-regexp_replace(cast (properties->'description' as text), '\"', '', 'g') as description, 
-cast(regexp_replace(cast (properties->'annualrevenue' as text), '\"', '', 'g') as int) as annualRevenue, 
-cast(regexp_replace(cast (properties->'numberofemployees' as text), '\"', '', 'g') as int) as numberOfEmployees 
-from hubspot_crm_companies
+domain as domain,
+country as country,
+industry as industry,
+description as description, 
+CASE when annualrevenue = ''
+     then null::bigint
+	 WHEN annualrevenue !~ '^(\+|-)?[[:digit:]]+$'
+     THEN NULL::bigint
+     WHEN annualrevenue::numeric NOT BETWEEN -9223372036854775808 AND 9223372036854775807
+     THEN NULL::bigint
+     ELSE annualrevenue::bigint
+end,
+CASE when numberOfEmployees = ''
+     then null::bigint
+	 WHEN numberOfEmployees !~ '^(\+|-)?[[:digit:]]+$'
+     THEN NULL::bigint
+     WHEN numberOfEmployees::numeric NOT BETWEEN -9223372036854775808 AND 9223372036854775807
+     THEN NULL::bigint
+     ELSE numberOfEmployees::bigint
+end as numberOfEmployees 
+from companies_with_revenue
 )
