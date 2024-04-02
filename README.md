@@ -1,5 +1,8 @@
 # CloudQuery GitHub Demo
 
+⚠️ This repository grew a bit out of hand as I've been using it with many other sources. To get a clean start with a sample CloudQuery plugin, see this [demo repository](https://github.com/pilvikala/cloudquery-container-demo).
+
+---
 A demo project with CloudQuery, Metabase, and Postgres containers syncing issues data from a GitHub repository.
 
 ## How to run this
