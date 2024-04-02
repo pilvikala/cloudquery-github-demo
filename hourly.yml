@@ -35,6 +35,7 @@ spec:
       - hostname: cloudquery.io
       - hostname: hub.cloudquery.io
       - hostname: cloud.cloudquery.io
+      - hostname: docs.cloudquery.io
 ---
 kind: source
 spec:

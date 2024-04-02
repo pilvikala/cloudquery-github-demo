@@ -7,3 +7,6 @@
 [submodule "cq-speed-test"]
 	path = cq-speed-test
 	url = git@github.com:pilvikala/cq-speed-test.git
+[submodule "cq-source-cloudquery"]
+	path = cq-source-cloudquery
+	url = git@github.com:pilvikala/cq-source-cloudquery.git

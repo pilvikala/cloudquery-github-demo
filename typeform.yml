@@ -1,0 +1,19 @@
+kind: source
+spec:
+  name: typeform
+  registry: docker
+  # path: docker.cloudquery.io/cloudquery/source-typeform:v0.0.1
+  path: ghcr.io/cloudquery/cq-source-typeform:v1.2.1
+  tables: ["*"]
+  destinations: ["postgresql"]
+  spec:
+    access_token: ${TYPEFORM_TOKEN}
+---
+kind: destination
+spec:
+  name: postgresql
+  path: cloudquery/postgresql
+  registry: cloudquery
+  version: "v6.1.3"
+  spec:
+    connection_string: ${PG_CONNECTION_STRING}
