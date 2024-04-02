@@ -35,8 +35,6 @@ services:
     build: cloudquery
     volumes:
       - ./daily.yml:/app/daily.yml:ro
-      - ./hourly.yml:/app/hourly.yml:ro
-      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - PG_CONNECTION_STRING="postgresql://cq:password123@cq-demo-postgres-1:5432/cq?sslmode=disable"
     env_file:
