@@ -1,0 +1,22 @@
+kind: source
+spec:
+  name: "bitly"
+  registry: "grpc"
+  path: "bitly-plugin:7777"
+  tables: ['*']
+  destinations: ["postgresql"]
+  spec:
+    group_id: ${BITLY_GROUP_ID}
+    api_token: ${BITLY_API_TOKEN}
+    extract_utm: true
+    created_after: "-14 days"
+---
+kind: destination
+spec:
+  name: postgresql
+  path: cloudquery/postgresql
+  registry: cloudquery
+  version: "v6.1.3"
+  write_mode: overwrite
+  spec:
+    connection_string: ${PG_CONNECTION_STRING}

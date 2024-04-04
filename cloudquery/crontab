@@ -1,1 +1,2 @@
 0 9 * * * /app/sync.sh /app/daily.yml
+0 8 * * * /app/sync.sh /app/bitly.yml

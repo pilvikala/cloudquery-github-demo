@@ -35,6 +35,7 @@ services:
     build: cloudquery
     volumes:
       - ./daily.yml:/app/daily.yml:ro
+      - ./bitly.yml:/app/bitly.yml:ro
     environment:
       - PG_CONNECTION_STRING="postgresql://cq:password123@cq-demo-postgres-1:5432/cq?sslmode=disable"
     env_file:
